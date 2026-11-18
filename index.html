@@ -28,6 +28,21 @@
 .paper .group td{background-color:var(--domain-bg)!important}
 .paper .group td *{background-color:transparent!important}
 @media print{.paper .period,.paper .group td{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+/* Cadres plus expressifs sur papier blanc. */
+.paper .identity{border:2px solid #b52b79;border-left-width:6px;border-radius:10px;padding:3.5mm 4mm;background-color:#fff!important}
+.paper .student-name{color:#a31c68;font-size:19pt}
+.paper .identity-line{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,.65fr);align-items:start;gap:3mm;margin-top:2.5mm;font-size:8.5pt;color:#34393b}
+.paper .identity-line span{overflow-wrap:anywhere;min-width:0}
+.paper .bulletin-date{font-size:8pt;color:#667078;margin-top:1.5mm}
+.paper .group td{border-width:1.5px;border-left-width:6px;color:var(--domain-color);font-size:11pt}
+.paper .period{border-width:2px;border-color:#d0940b;color:#805300}
+.paper .report-head h2{color:#246399}
+.paper .comment{border:2px solid #c38322}
+.paper .comment h3{color:#a2630a}
+.paper .attendance{border:1.5px solid #c38322}
+.paper .accommodations{border:1.5px solid #278362;border-left-width:5px}
+.paper .accommodations h3{color:#207256}
+.paper .signature{border-width:1.5px}
 </style></head><body><!-- Embedded Caveat font, licensed under the SIL Open Font License 1.1.
 Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
 
@@ -161,7 +176,7 @@ function itemResult(p,i){if(i>=12&&Array.isArray(p.attitude)){const n=p.attitude
 function groupResult(p,group){const values=fields.map((f,i)=>f[0]===group?itemResult(p,i):null).filter(Boolean);if(!values.length)return null;return {points:values.reduce((a,x)=>a+x.points,0),max:values.reduce((a,x)=>a+x.max,0),count:values.length}}
 function save(){try{localStorage.setItem('bornival-bulletins-v2',JSON.stringify(state));storageOK=true}catch(e){storageOK=false}$('status').textContent=storageOK?'Enregistrement automatique sur cet appareil ✓':'Enregistrement local indisponible : téléchargez une sauvegarde.';$('status').className=storageOK?'':'error'}
 function menu(){$('students').innerHTML=state.students.map((s,i)=>`<option value="${esc(s.id)}">${esc((s.last+' '+s.first).trim()||'Nouvel élève '+(i+1))}</option>`).join('');$('students').value=current}
-function header(s,page){const c=state.settings,p=data(s),date=p.date?new Date(p.date+'T12:00:00').toLocaleDateString('fr-BE'):'';return `<div class="school"><div><div class="school-name">${esc(c.school)}</div><div class="school-address">${esc(c.address)}</div></div><img alt="Logo de l’école" src="${c.logo}"></div><div class="report-head"><h2>Mon bulletin</h2><span class="period">Période ${period}</span></div><div class="identity"><div class="student-name">${esc((s.first+' '+s.last).trim()||'Prénom Nom')}</div><div class="metadata"><span>Classe : ${esc(c.classroom)}</span><span>${esc(c.year)}</span><span>${esc(date)}</span></div><div style="font-size:9pt;margin-top:2mm">Titulaire : ${esc(c.teacher)}</div></div>`}
+function header(s,page){const c=state.settings,p=data(s),date=p.date?new Date(p.date+'T12:00:00').toLocaleDateString('fr-BE'):'';return `<div class="school"><div><div class="school-name">${esc(c.school)}</div><div class="school-address">${esc(c.address)}</div></div><img alt="Logo de l’école" src="${c.logo}"></div><div class="report-head"><h2>Mon bulletin</h2><span class="period">Période ${period}</span></div><div class="identity"><div class="student-name">${esc((s.first+' '+s.last).trim()||'Prénom Nom')}</div><div class="metadata identity-line"><span>Titulaire : ${esc(c.teacher)}</span><span>Année : ${esc(c.year)}</span><span>Classe : ${esc(c.classroom)}</span></div>${date?`<div class="bulletin-date">Date : ${esc(date)}</div>`:""}</div>`}
 function footer(n){return `<div class="report-footer"><span>${esc(state.settings.school)} · Période ${period}</span><span>${n} / 2</span></div>`}
 const domainColors={'Français':['#245ea5','#e9f1fc'],'Mathématiques':['#74439d','#f1eafa'],'Éveil':['#207256','#e6f4ed'],'Attitude':['#985613','#fff1df']};
 function domainStyle(g){const c=domainColors[g];return '--domain-color:'+c[0]+';--domain-bg:'+c[1]}
