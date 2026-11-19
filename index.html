@@ -60,6 +60,20 @@
 .paper .below-half{color:#b00020!important;font-weight:900!important;-webkit-text-stroke:.25px currentColor}
 .paper .group td span.below-half{background-color:#fff!important;border-radius:4px;padding:1mm 2mm;-webkit-text-stroke:.25px currentColor}
 @media print{.paper .below-half{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* Résultats sous 50 % : rouge vif et trait renforcé, également à l’impression. */
+.paper td.below-half,.paper .group td span.below-half{
+ color:#ed0000!important;font-weight:900!important;
+ -webkit-text-stroke:.65px #ed0000!important;
+ text-shadow:none!important;
+}
+@media print{
+ .paper td.below-half,.paper .group td span.below-half{
+  color:#ed0000!important;-webkit-text-fill-color:#ed0000!important;
+  -webkit-text-stroke:.65px #ed0000!important;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+ }
+}
 </style></head><body><!-- Embedded Caveat font, licensed under the SIL Open Font License 1.1.
 Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
 
